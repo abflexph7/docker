@@ -12,7 +12,7 @@
   "dependencies": {
     "express": "^5.2.1"
   },
-   "overrides": {
+  "overrides": {
     "tar": "^7.5.19"
   }
 }
