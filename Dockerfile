@@ -1,5 +1,6 @@
 # Stage 1: Build
 FROM node:20-alpine AS builder
+RUN npm install -g npm@latest 
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production
@@ -17,5 +18,4 @@ COPY app.js ./
 USER appuser
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=3s \
-  CMD node -e "require('http').get('http://localhost:3000/health',(r)=>process.exit(r.statusCode===200?0:1))"
-CMD ["node", "app.js"]
+  CMD node -e "require('http').get('http://localhost:3000/health',(r)=>process.exit(r.statusCode===200
