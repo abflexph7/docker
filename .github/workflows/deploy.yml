@@ -92,7 +92,7 @@ jobs:
       - name: Download task definition
         run: |
           aws ecs describe-task-definition \
-            --task-definition ${{ secrets.ECS_SERVICE }} \
+            --task-definition ${{ secrets.TASK_DEFINITION }} \
             --query taskDefinition > task-def.json
 
       - name: Update container image in task definition
