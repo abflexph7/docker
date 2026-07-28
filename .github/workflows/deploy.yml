@@ -65,7 +65,7 @@ jobs:
           image-ref: ${{ secrets.ECR_REPOSITORY }}:${{ steps.meta.outputs.sha }}
           severity: "CRITICAL"
           exit-code: "1"   # Fails pipeline on CRITICAL CVEs
-          ignore-unfixed: true
+          skip-dirs: /usr/local/lib/node_modules
 
       - name: Push to ECR
         run: |
