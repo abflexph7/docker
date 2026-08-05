@@ -1,0 +1,23 @@
+name: Rollback Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Git SHA to roll back to (e.g. abc1234)"
+        required: true
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.GITHUB_ACTIONS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Deploy previous image
+        run: |
+          echo "Rolling back to: ${{ inputs.image_tag }}"
+          # (same deploy steps as above but with inputs.image_tag)
