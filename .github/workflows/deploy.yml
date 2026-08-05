@@ -85,19 +85,19 @@ jobs:
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
-        with:
+        with: 
           role-to-assume: ${{ secrets.ACTIONS_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Download task definition
+      - name: Download task definitions
         run: |
           aws ecs describe-task-definition \
             --task-definition ${{ secrets.TASK_DEFINITION }} \
-            --query taskDefinition > task-def.json
+            --query taskDefinition > raw-task-def.json
 
       - name: Update container image in task definition
         id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        uses: aws-actions/amazon-ecs-render-task-definition@v2
         with:
           task-definition: task-def.json
           container-name: ${{ secrets.ECS_CONTAINER }}
