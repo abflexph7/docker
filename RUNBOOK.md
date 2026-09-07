@@ -45,3 +45,14 @@ Emergency rollback (while you investigate):
   ECS → myapp-service → Update service
   Task definition: choose the previous revision number
   Force new deployment: checked → Update
+
+Symptom: "Error: Could not assume role" in Job 2 or Job 3
+Cause:
+  The IAM role trust policy condition does not match the repository path
+Fix:
+  1. IAM → Roles → github-actions-deploy-role → Trust relationships
+  2. Find the Condition block:
+     "token.actions.githubusercontent.com:sub": "repo:OWNER/REPO:*"
+  3. Verify OWNER and REPO exactly match your GitHub username and repo name
+     (case-sensitive)
+  4. Update and retry the pipeline
