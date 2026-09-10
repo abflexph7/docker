@@ -62,8 +62,10 @@ jobs:
       - name: Build Docker image (with cache)
         uses: docker/build-push-action@v5
         with:
+          
          context: .
          push: false
+         load: true
          tags: ${{ secrets.ECR_REPOSITORY }}:${{ steps.meta.outputs.sha }}
          cache-from: type=gha
          cache-to: type=gha,mode=max
